@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //prefijo.
 //@RequestMapping("/clientes")
 public class ClienteController {
-	
+
+	//@Autowired
 	private ClienteService clienteService;
-	
 	//Se utiliza inyección automática por constructor del framework Spring.
 	//Por tanto, se puede omitir la anotación Autowired
-	//@Autowired
+
 	public ClienteController(ClienteService clienteService) {
 		this.clienteService = clienteService;
 	}
-	
+
 	//@RequestMapping(value = "/clientes", method = RequestMethod.GET)
 	//equivalente a la siguiente anotación
 	@GetMapping("/clientes") //Al no tener ruta base para el controlador, cada método tiene que tener la ruta completa
@@ -34,13 +34,9 @@ public class ClienteController {
 		List<Cliente> listaClientes =  clienteService.listAll();
 		model.addAttribute("listaClientes", listaClientes);
 				
-		return "clientes";
+		return "clientes";// es el nombre de templates, lo redirigue allí
 		
 	}
-	
-	
-	
-	
-	
+
 
 }
