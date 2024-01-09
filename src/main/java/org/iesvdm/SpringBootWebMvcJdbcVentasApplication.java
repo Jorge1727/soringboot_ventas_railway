@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
-public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner{
+	public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner{
 
 	@Autowired
 	private ClienteDAO clienteDAO;

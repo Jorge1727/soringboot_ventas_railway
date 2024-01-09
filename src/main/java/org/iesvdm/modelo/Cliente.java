@@ -10,11 +10,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class Cliente {
 	
-	private long id;
+	private int id;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
 	private String ciudad;
 	private int categoria;
-	
+
+	//Constructor vacio para poder hacer crear-cliente
+	public Cliente() {
+	}
 }

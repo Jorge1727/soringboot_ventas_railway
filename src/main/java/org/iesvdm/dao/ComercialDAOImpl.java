@@ -75,17 +75,21 @@ public class ComercialDAOImpl implements ComercialDAO {
 						rs.getString("nombre"),
 						rs.getString("apellido1"),
 						rs.getString("apellido2"),
-						rs.getInt("comisión"))
+						rs.getFloat("comisión"))
 				, id);
 
-		return Optional.empty();
+		if (fab != null) {
+			return Optional.of(fab);}
+		else {
+			log.info("Cliente no encontrado.");
+			return Optional.empty(); }
 	}
 
 	@Override
 	public void update(Comercial comercial) {
 
 		int rows  = jdbcTemplate.update("""
-											UPDATE comercial SET nomrbe = ?,apellido1 = ?, apellido2 = ?, comisión = ? WHERE id = ? 
+											UPDATE comercial SET nombre = ?,apellido1 = ?, apellido2 = ?, comisión = ? WHERE id = ? 
 											""",
 				comercial.getNombre(),
 				comercial.getApellido1(),
