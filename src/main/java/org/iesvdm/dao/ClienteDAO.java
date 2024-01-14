@@ -17,5 +17,5 @@ public interface ClienteDAO {
 	public void update(Cliente cliente);
 	
 	public void delete(long id);
-	
+
 }
