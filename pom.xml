@@ -97,7 +97,11 @@
 			<version>17.0.1</version>
 		</dependency>
 
-
+<!--		dependencia para las validaciones en el paquete de modelo-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
