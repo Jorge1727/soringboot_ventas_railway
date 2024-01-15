@@ -23,10 +23,16 @@
                         <div class="form-group">
                             <label>Nombre</label>
                             <input class="form-control" th:field="*{nombre}" />
+                            <ul class="alert alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                                <li th:each="err : ${#fields.hasErrors('nombre')}"/>
+                            </ul>
                         </div>
                         <div class="form-group">
                             <label>Apellido 1</label>
                             <input class="form-control" th:field="*{apellido1}" />
+                            <ul class="alert alert-danger" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">
+                                <li th:each="err : ${#fields.hasErrors('apellido1')}"/>
+                            </ul>
                         </div>
                         <div class="form-group">
                             <label>Apellido 2</label>
@@ -35,6 +41,9 @@
                         <div class="form-group">
                             <label>Comercial</label>
                             <input class="form-control" th:field="*{comision}" />
+                            <ul class="alert alert-danger" th:if="${#fields.hasErrors('comision')}" th:errors="*{comision}">
+                                <li th:each="err : ${#fields.hasErrors('comision')}"/>
+                            </ul>
                         </div>
 
                         <input class="btn btn-success" type="submit" value="Editar">

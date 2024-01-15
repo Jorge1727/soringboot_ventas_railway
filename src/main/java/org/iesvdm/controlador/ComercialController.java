@@ -82,11 +82,14 @@ public class ComercialController {
     }
 
     @PostMapping("/comerciales/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitEditar(@Valid @ModelAttribute("comercial") Comercial comercial, Errors errors) {
 
+        if(errors.hasErrors()){
+            return "editar-comercial";
+        }
         comercialService.replaceComercial(comercial);
 
-        return new RedirectView("/comerciales");
+        return "redirect:/comerciales";
     }
 
     @PostMapping("/comerciales/borrar/{id}")
