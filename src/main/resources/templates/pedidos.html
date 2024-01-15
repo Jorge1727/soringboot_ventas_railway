@@ -3,7 +3,7 @@
 <!--COMO NO LO VOY A USAR LO COMENTO-->
 <!--<head th:insert="fragments/general.html :: headerfiles">-->
 <head>
-	<title>Clientes</title>
+	<title>Pedidos</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,8 +29,8 @@
 	</nav>
 
 	<div class="container" >
-		<h1>Clientes</h1>
-		<form action="/clientes/crear">
+		<h1>Pedidos</h1>
+		<form th:action="@{/pedidos/buscar}">
 			<input class="btn btn-success btn-lg" type="submit" value="Crear">
 		</form>
 
@@ -38,35 +38,33 @@
 			<thead class="table-dark">
 				<tr>
 					<th>Id</th>
-					<th>Nombre</th>
-					<th>Apellido1</th>
-					<th>Apellido2</th>
-					<th>Ciudad</th>
-					<th>Categoría</th>
+					<th>Total</th>
+					<th>Fecha</th>
+					<th>id_Cliente</th>
+					<th>id_Comercial</th>
 					<th>Acción</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr  th:each="cliente : ${listaClientes}" >
-					<td th:text="${cliente.id}">0</td>
-					<td th:text="${cliente.nombre}">nombre</td>
-					<td th:text="${cliente.apellido1}">apellido1</td>
-					<td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
-					<td th:text="${cliente.ciudad}">ciudad</td>
-					<td th:text="${cliente.categoria}">categoría</td>
+				<tr  th:each="pedido : ${listaPedidos}" >
+					<td th:text="${pedido.id}">0</td>
+					<td th:text="${pedido.total}">total</td>
+					<td th:text="${pedido.fecha}">fecha</td>
+					<td th:text="${pedido.id_cliente}">id_cliente</td>
+					<td th:text="${pedido.id_comercial ?: '&nbsp;'}">id_comercial</td>
 					<td>
-						<form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
+						<form th:action="@{/pedidos/__${pedido.id}__}" style="display: inline;">
 							<input class="btn btn-primary" type="submit" value="Ver Detalle" />
 						</form>
-						<form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
+						<form th:action="@{/pedidos/editar/}+${pedido.id} " style="display: inline;">
 							<input class="btn btn-warning" type="submit" value="Editar" />
 						</form>
-						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#exampleModal-' + ${cliente.id}">
+						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#exampleModal-' + ${pedido.id}">
 							Eliminar
 						</button>
 
 						<!-- Modal -->
-						<div class="modal fade" th:id="'exampleModal-' + ${cliente.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" th:id="'exampleModal-' + ${pedido.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -76,11 +74,11 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<p th:text="'¿Está seguro que desea eliminar al cliente con id: ' + ${cliente.id} + ' ?'"></p>
+										<p th:text="'¿Está seguro que desea eliminar al pedido con id: ' + ${pedido.id} + ' ?'"></p>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<form th:action="@{/clientes/borrar/{id}(id=${cliente.id})}" method="post" style="display: inline;">
+										<form th:action="@{/pedidos/borrar/{id}(id=${pedido.id})}" method="post" style="display: inline;">
 											<input class="btn btn-danger" type="submit" value="Eliminar" />
 										</form>
 									</div>

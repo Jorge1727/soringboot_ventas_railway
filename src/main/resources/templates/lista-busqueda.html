@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Comerciales</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-7">
+<div class="row justify-content-md-center">
+
+
+
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido1</th>
+        <th>Apellido2</th>
+        <th>Comisión</th>
+        <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="comercial : ${listaBusqueda}" >
+        <td th:text="${comercial.id}">0</td>
+        <td th:text="${comercial.nombre}">nombre</td>
+        <td th:text="${comercial.apellido1}">apellido1</td>
+        <td th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</td>
+        <td th:text="${comercial.comision}">comision</td>
+        <td>
+            <form th:action="@{/pedidos/crear/__${comercial.id}__}" style="display: inline;" method="post">
+                <input class="btn btn-primary" type="submit" value="Seleccionar" />
+            </form>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <!-- Verificar si hay un mensaje de no resultados y mostrarlo -->
+    <div th:if="${sinResultados != null}" class="alert alert-info">
+        <p th:text="${sinResultados}"></p>
+        <form th:action="@{/pedidos/buscar}">
+            <button type="submit" class="btn btn-success">Volver</button>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>
