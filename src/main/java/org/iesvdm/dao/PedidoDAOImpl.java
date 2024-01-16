@@ -100,7 +100,7 @@ public class PedidoDAOImpl implements PedidoDAO {
             						 						rs.getDate("fecha"),
             						 						rs.getInt("id_cliente"),
             						 						rs.getInt("id_comercial"))
-								);
+								,id);
 		
 		if (fab != null) { 
 			return Optional.of(fab);}
@@ -143,5 +143,19 @@ public class PedidoDAOImpl implements PedidoDAO {
 		log.info("Delete de Pedido con {} registros eliminados.", rows);
 		
 	}
-	
+
+	@Override
+	public List<Pedido> findVentasComercial(long idComercial) {
+		List<Pedido> listPed =  jdbcTemplate
+				.query("SELECT * FROM pedido WHERE id_comercial = ?"
+						, (rs, rowNum) -> new Pedido(rs.getInt("id"),
+								rs.getDouble("total"),
+								rs.getDate("fecha"),
+								rs.getInt("id_cliente"),
+								rs.getInt("id_comercial"))
+						,idComercial);
+
+		return listPed;
+	}
+
 }

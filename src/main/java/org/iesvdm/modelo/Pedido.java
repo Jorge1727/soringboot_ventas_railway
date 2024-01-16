@@ -19,6 +19,7 @@ public class Pedido {
     @NotNull(message = "El campo no puede ser nulo")
     private double total;
 
+    @NotNull
     private Date fecha;
 
     @NotNull(message = "El campo no puede ser nulo")

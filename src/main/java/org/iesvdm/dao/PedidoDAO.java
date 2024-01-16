@@ -18,4 +18,10 @@ public interface PedidoDAO {
 	
 	public void delete(long id);
 
+	/**
+	 * Segun id de comercial vemos las ventas realizadas por el
+	 * @param id
+	 */
+	public List<Pedido> findVentasComercial(long id);
+
 }

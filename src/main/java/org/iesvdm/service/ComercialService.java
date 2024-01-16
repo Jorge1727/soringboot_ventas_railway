@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.ComercialDAO;
+import org.iesvdm.dao.PedidoDAO;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ComercialService {
 
     @Autowired
     private ComercialDAO comercialDAO;
+    @Autowired
+    private PedidoDAO pedidoDAO;
 
     //Se utiliza inyección automática por constructor del framework Spring.
     //Por tanto, se puede omitir la anotación Autowired
@@ -45,5 +49,10 @@ public class ComercialService {
 
     public void deleteComercial(int id){
         comercialDAO.delete(id);
+    }
+
+    public List<Pedido> pedidos(Integer id){
+
+        return pedidoDAO.findVentasComercial(id);
     }
 }

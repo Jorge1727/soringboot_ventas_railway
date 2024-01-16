@@ -42,6 +42,31 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="container mt-5">
+                    <h1>Pedidos</h1>
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>id_Cliente</th>
+                            <th>id_Comercial</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  th:each="pedido : ${listaPedidos}" >
+                            <td th:text="${pedido.id}">0</td>
+                            <td th:text="${pedido.total}">total</td>
+                            <td th:text="${pedido.fecha}">fecha</td>
+                            <td th:text="${pedido.id_cliente}">id_cliente</td>
+                            <td th:text="${pedido.id_comercial ?: '&nbsp;'}">id_comercial</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
