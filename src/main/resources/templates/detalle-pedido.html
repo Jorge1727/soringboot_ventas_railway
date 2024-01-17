@@ -11,35 +11,55 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header  bg-dark">
-                    <h1 class="text-center text-white">Detalle Pedido</h1>
+                    <h1 class="text-center text-white" th:text="#{ver.detalle} + ' ' + #{pedidos}"></h1>
                 </div>
                 <div class="card-body">
                     <form action="/pedidos">
-                        <button type="submit" class="btn btn-success">Volver</button>
+                        <button type="submit" class="btn btn-success" th:text="#{volver}"></button>
                     </form>
 
                     <div class="form-group">
-                        <label for="codigo">Código</label>
+                        <label for="codigo">Id</label>
                         <input id="codigo" class="form-control" th:value="${pedido.id}" readonly="readonly"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="total">Total</label>
+                        <label for="total" th:text="#{total}"></label>
                         <input id="total" class="form-control" th:value="${pedido.total}" readonly="readonly"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="fecha">Fecha</label>
+                        <label for="fecha" th:text="#{fecha}"></label>
                         <input id="fecha" class="form-control" th:value="${pedido.fecha}" readonly="readonly"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="id_cliente">id Cliente</label>
-                        <input id="id_cliente" class="form-control" th:value="${pedido.id_cliente}" readonly="readonly"/>
+                        <label for="nombre_cliente" th:text="#{nombre}+ ' ' + #{cliente}"></label>
+                        <a id="nombre_cliente" th:href="@{'/clientes/' + ${pedido.cliente.id}}" target="_blank" >
+                            <input class="form-control" th:value="${pedido.cliente.nombre}" readonly="readonly" style="background-color: #a9c6fc;cursor: pointer;"/>
+                        </a>
                     </div>
                     <div class="form-group">
-                        <label for="id_comercial">id Comercial</label>
-                        <input id="id_comercial" class="form-control" th:value="${pedido.id_comercial}" readonly="readonly"/>
+                        <label for="apellido_cliente" th:text="#{apellido}+ ' ' + #{cliente}"></label>
+                        <input id="apellido_cliente" class="form-control" th:value="${pedido.cliente.apellido1}" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad_cliente" th:text="#{ciudad}+ ' ' + #{cliente}"></label>
+                        <input id="ciudad_cliente" class="form-control" th:value="${pedido.cliente.ciudad}" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_comercial" th:text="#{nombre}+ ' ' + #{comercial}"></label>
+                        <a id="nombre_comercial" th:href="@{'/comerciales/' + ${pedido.comercial.id}}" target="_blank" >
+                            <input class="form-control" th:value="${pedido.comercial.nombre}" readonly="readonly" style="background-color: #a9c6fc;cursor: pointer;"/>
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido_comercial" th:text="#{apellido}+ ' ' + #{comercial}">Apellido Comercial</label>
+                        <input id="apellido_comercial" class="form-control" th:value="${pedido.comercial.apellido1}" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="comision_comercial" th:text="#{comision}+ ' ' + #{comercial}"></label>
+                        <input id="comision_comercial" class="form-control" th:value="${pedido.comercial.comision}" readonly="readonly"/>
                     </div>
                 </div>
             </div>

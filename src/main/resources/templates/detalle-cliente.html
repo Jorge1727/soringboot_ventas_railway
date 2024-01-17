@@ -11,36 +11,36 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header  bg-dark">
-                    <h1 class="text-center text-white">Detalle Cliente</h1>
+                    <h1 class="text-center text-white" th:text="#{ver.detalle} + ' ' + #{clientes}"></h1>
                 </div>
                 <div class="card-body">
                     <form action="/clientes">
-                        <button type="submit" class="btn btn-success">Volver</button>
+                        <button type="submit" class="btn btn-success" th:text="#{volver}"></button>
                     </form>
 
                     <div class="form-group">
-                        <label for="codigo">Código</label>
+                        <label for="codigo">Id</label>
                         <input id="codigo" class="form-control" th:value="${cliente.id}" readonly="readonly"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre" th:text="#{nombre}"></label>
                         <input id="nombre" class="form-control" th:value="${cliente.nombre}" readonly="readonly"/>
                     </div>
                     <div class="form-group">
-                        <label for="apellido1">Apellido 1</label>
+                        <label for="apellido1" th:text="#{apellido}"> 1</label>
                         <input id="apellido1" class="form-control" th:value="${cliente.apellido1}" readonly="readonly"/>
                     </div>
                     <div class="form-group">
-                        <label for="apellido2">Apellido 2</label>
+                        <label for="apellido2" th:text="#{apellido}"> 2</label>
                         <input id="apellido2" class="form-control" th:value="${cliente.apellido2}" readonly="readonly"/>
                     </div>
                     <div class="form-group">
-                        <label for="ciudad">Ciudad</label>
+                        <label for="ciudad" th:text="#{ciudad}"></label>
                         <input id="ciudad" class="form-control" th:value="${cliente.ciudad}" readonly="readonly"/>
                     </div>
                     <div class="form-group">
-                        <label for="categoria">Categoría</label>
+                        <label for="categoria" th:text="#{categoria}"></label>
                         <input id="categoria" class="form-control" th:value="${cliente.categoria}" readonly="readonly"/>
                     </div>
                 </div>

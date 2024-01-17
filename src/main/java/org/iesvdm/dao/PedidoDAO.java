@@ -22,6 +22,6 @@ public interface PedidoDAO {
 	 * Segun id de comercial vemos las ventas realizadas por el
 	 * @param id
 	 */
-	public List<Pedido> findVentasComercial(long id);
+	public List<Pedido> pedidosIdComercial(long id);
 
 }

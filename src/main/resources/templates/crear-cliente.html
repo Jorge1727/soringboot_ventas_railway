@@ -10,46 +10,50 @@
 <div class="container mt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-9">
+            <form th:action="@{/clientes}">
+                <button type="submit" class="btn btn-primary" th:text="#{volver}"></button>
+            </form>
             <div class="card">
                 <form class="" th:action="@{/clientes/crear}" th:object="${cliente}" method="post">
                     <div class="card-header  bg-dark">
-                        <h2 class="text-center text-white">Crear Cliente</h2>
+                        <h2 class="text-center text-white" th:text="#{crear} + ' ' + #{clientes}"></h2>
                     </div>
                     <div class="card-body">
+
                     <div class="form-group">
-                        <label>Nombre</label>
+                        <label th:text="#{nombre}"></label>
                         <input class="form-control" th:field="*{nombre}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
                             <li th:each="err : ${#fields.hasErrors('nombre')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>Apellido 1</label>
+                        <label th:text="#{apellido}"> 1</label>
                         <input class="form-control" th:field="*{apellido1}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">
                             <li th:each="err : ${#fields.hasErrors('apellido1')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>Apellido 2</label>
+                        <label th:text="#{apellido}"> 2</label>
                         <input class="form-control" th:field="*{apellido2}" />
                     </div>
                     <div class="form-group">
-                        <label>Ciudad</label>
+                        <label th:text="#{ciudad}"></label>
                         <input class="form-control" th:field="*{ciudad}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}">
                             <li th:each="err : ${#fields.hasErrors('ciudad')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>Categoría</label>
+                        <label th:text="#{categoria}"></label>
                         <input class="form-control" th:field="*{categoria}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
                             <li th:each="err : ${#fields.hasErrors('categoria')}"/>
                         </ul>
                     </div>
 
-                    <input class="btn btn-success" type="submit" value="Crear">
+                    <input class="btn btn-success" type="submit" th:value="#{crear}">
                     </div>
                 </form>
             </div>

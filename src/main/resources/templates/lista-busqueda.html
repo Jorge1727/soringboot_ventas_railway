@@ -43,7 +43,7 @@
     </tr>
     </tbody>
 </table>
-    <!-- Verificar si hay un mensaje de no resultados y mostrarlo -->
+    <!-- verifica si no hay resultados y lo muestra -->
     <div th:if="${sinResultados != null}" class="alert alert-info">
         <p th:text="${sinResultados}"></p>
         <form th:action="@{/pedidos/buscar}">

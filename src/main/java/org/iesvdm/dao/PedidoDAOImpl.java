@@ -46,8 +46,8 @@ public class PedidoDAOImpl implements PedidoDAO {
 			java.sql.Date fechaSql = new java.sql.Date(pedido.getFecha().getTime());
 			ps.setDate(idx++, fechaSql);
 
-			ps.setInt(idx++, pedido.getId_cliente());
-			ps.setInt(idx++, pedido.getId_comercial());
+			ps.setInt(idx++, pedido.getCliente().getId());
+			ps.setInt(idx++, pedido.getComercial().getId());
 			return ps;
 		},keyHolder);
 		
@@ -70,20 +70,16 @@ public class PedidoDAOImpl implements PedidoDAO {
 	 */
 	@Override
 	public List<Pedido> getAll() {
+
+		List<Pedido> listPedido = this.jdbcTemplate.query("""
+                SELECT * FROM  pedido P left join cliente C on  P.id_cliente = C.id
+                                        left join comercial CO on P.id_comercial = CO.id
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs)
+		);
+
+		log.info("Devueltos {} registros.", listPedido.size());
 		
-		List<Pedido> listFab = jdbcTemplate.query(
-                "SELECT * FROM pedido",
-                (rs, rowNum) -> new Pedido(rs.getInt("id"),
-                						 	rs.getDouble("total"),
-                						 	rs.getDate("fecha"),
-                						 	rs.getInt("id_cliente"),
-                						 	rs.getInt("id_comercial")
-                						 	)
-        );
-		
-		log.info("Devueltos {} registros.", listFab.size());
-		
-        return listFab;
+        return listPedido;
         
 	}
 
@@ -92,22 +88,16 @@ public class PedidoDAOImpl implements PedidoDAO {
 	 */
 	@Override
 	public Optional<Pedido> find(int id) {
-		
-		Pedido fab =  jdbcTemplate
-				.queryForObject("SELECT * FROM pedido WHERE id = ?"
-								, (rs, rowNum) -> new Pedido(rs.getInt("id"),
-            						 						rs.getDouble("total"),
-            						 						rs.getDate("fecha"),
-            						 						rs.getInt("id_cliente"),
-            						 						rs.getInt("id_comercial"))
-								,id);
-		
-		if (fab != null) { 
-			return Optional.of(fab);}
-		else { 
-			log.info("Pedido no encontrado.");
-			return Optional.empty(); }
-        
+
+		Pedido pedido= this.jdbcTemplate.queryForObject("""
+                    select * from pedido P left join cliente C on  P.id_cliente = C.id
+                                        left join comercial CO on P.id_comercial = CO.id
+                                        WHERE P.id = ?
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), id);
+
+		if (pedido != null) return Optional.of(pedido);
+		log.debug("No encontrado pedido con id {} devolviendo Optional.empty()", id);
+		return Optional.empty();
 	}
 	/**
 	 * Actualiza Pedido con campos del bean Pedido según ID del mismo.
@@ -124,8 +114,8 @@ public class PedidoDAOImpl implements PedidoDAO {
 												WHERE id = ?
 										""", pedido.getTotal()
 										, pedido.getFecha()
-										, pedido.getId_cliente()
-										, pedido.getId_comercial()
+										, pedido.getCliente().getId()
+										, pedido.getComercial().getId()
 										, pedido.getId());
 		
 		log.info("Update de Pedido con {} registros actualizados.", rows);
@@ -145,17 +135,14 @@ public class PedidoDAOImpl implements PedidoDAO {
 	}
 
 	@Override
-	public List<Pedido> findVentasComercial(long idComercial) {
-		List<Pedido> listPed =  jdbcTemplate
-				.query("SELECT * FROM pedido WHERE id_comercial = ?"
-						, (rs, rowNum) -> new Pedido(rs.getInt("id"),
-								rs.getDouble("total"),
-								rs.getDate("fecha"),
-								rs.getInt("id_cliente"),
-								rs.getInt("id_comercial"))
-						,idComercial);
+	public List<Pedido> pedidosIdComercial(long idComercial) {
+		List<Pedido> listPedido = this.jdbcTemplate.query("""
+                SELECT * FROM  pedido P left join cliente as C on  P.id_cliente = C.id
+                                        left join comercial as CO on P.id_comercial = CO.id
+                                        where CO.id = ?
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), idComercial);
 
-		return listPed;
+		return listPedido;
 	}
 
 }

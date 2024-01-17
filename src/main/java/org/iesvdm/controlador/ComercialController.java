@@ -1,12 +1,14 @@
 package org.iesvdm.controlador;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
+import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ComercialController {
     @Autowired
     private ComercialService comercialService;
+    @Autowired
+    private ClienteService clienteService;
 
     //Se utiliza inyección automática por constructor del framework Spring.
     //Por tanto, se puede omitir la anotación Autowired
@@ -66,7 +70,7 @@ public class ComercialController {
     public String detalle(Model model, @PathVariable Integer id ) {
 
         Comercial comercial = comercialService.one(id);
-        List<Pedido> listaPedidos = comercialService.pedidos(id);
+        List<Pedido> listaPedidos = comercialService.pedidosComercial(id);
         model.addAttribute("comercial", comercial);
         model.addAttribute("listaPedidos", listaPedidos);
 

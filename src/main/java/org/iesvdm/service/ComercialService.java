@@ -51,8 +51,8 @@ public class ComercialService {
         comercialDAO.delete(id);
     }
 
-    public List<Pedido> pedidos(Integer id){
+    public List<Pedido> pedidosComercial(Integer id){
 
-        return pedidoDAO.findVentasComercial(id);
+        return pedidoDAO.pedidosIdComercial(id);
     }
 }

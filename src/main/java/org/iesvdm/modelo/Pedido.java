@@ -23,10 +23,10 @@ public class Pedido {
     private Date fecha;
 
     @NotNull(message = "El campo no puede ser nulo")
-    private int id_cliente;
+    private Cliente cliente;
 
     @NotNull(message = "El campo no puede ser nulo")
-    private int id_comercial;
-
+    private Comercial comercial;
     public Pedido(){}
+
 }

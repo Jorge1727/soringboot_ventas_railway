@@ -17,32 +17,32 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a th:href="@{/clientes}" class="nav-link" >Lista de Clientes</a>
+				<a th:href="@{/clientes}" class="nav-link" th:text="#{lista.clientes}"></a>
 			</li>
 			<li class="nav-item">
-				<a  th:href="@{/comerciales}" class="nav-link">Lista de Comerciales</a>
+				<a  th:href="@{/comerciales}" class="nav-link" th:text="#{lista.comerciales}"></a>
 			</li>
 			<li class="nav-item">
-				<a  th:href="@{/pedidos}" class="nav-link">Lista de Pedidos</a>
+				<a  th:href="@{/pedidos}" class="nav-link" th:text="#{lista.pedidos}"></a>
 			</li>
 		</ul>
 	</nav>
 
 	<div class="container" >
-		<h1>Pedidos</h1>
+		<h1 th:text="#{pedidos}"></h1>
 		<form th:action="@{/pedidos/buscar}">
-			<input class="btn btn-success btn-lg" type="submit" value="Crear">
+			<input class="btn btn-success btn-lg" type="submit" th:value="#{crear}">
 		</form>
 
 		<table class="table table-striped">
 			<thead class="table-dark">
 				<tr>
 					<th>Id</th>
-					<th>Total</th>
-					<th>Fecha</th>
-					<th>id_Cliente</th>
-					<th>id_Comercial</th>
-					<th>Acción</th>
+					<th th:text="#{total}"></th>
+					<th th:text="#{fecha}"></th>
+					<th th:text="#{nombre} +' ' + #{clientes}"></th>
+					<th th:text="#{nombre} +' ' + #{comerciales}"></th>
+					<th th:text="#{accion}"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -50,17 +50,16 @@
 					<td th:text="${pedido.id}">0</td>
 					<td th:text="${pedido.total}">total</td>
 					<td th:text="${pedido.fecha}">fecha</td>
-					<td th:text="${pedido.id_cliente}">id_cliente</td>
-					<td th:text="${pedido.id_comercial ?: '&nbsp;'}">id_comercial</td>
+					<td th:text="${pedido.cliente.nombre}">nombre_cliente</td>
+					<td th:text="${pedido.comercial.nombre ?: '&nbsp;'}">nombre_comercial</td>
 					<td>
 						<form th:action="@{/pedidos/__${pedido.id}__}" style="display: inline;">
-							<input class="btn btn-primary" type="submit" value="Ver Detalle" />
+							<input class="btn btn-primary" type="submit" th:value="#{ver.detalle}" />
 						</form>
 						<form th:action="@{/pedidos/editar/}+${pedido.id} " style="display: inline;">
-							<input class="btn btn-warning" type="submit" value="Editar" />
+							<input class="btn btn-warning" type="submit" th:value="#{editar}" />
 						</form>
-						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#exampleModal-' + ${pedido.id}">
-							Eliminar
+						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#exampleModal-' + ${pedido.id}" th:text="#{eliminar}">
 						</button>
 
 						<!-- Modal -->
@@ -68,18 +67,18 @@
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Confirmar eliminar</h5>
+										<h5 class="modal-title" id="exampleModalLabel" th:text="#{confirmar.eliminar}"></h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-body">
-										<p th:text="'¿Está seguro que desea eliminar al pedido con id: ' + ${pedido.id} + ' ?'"></p>
+										<p th:text="#{mensaje.desear.eliminar.pedido} + ${pedido.id} + ' ?'"></p>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{cerrar}"></button>
 										<form th:action="@{/pedidos/borrar/{id}(id=${pedido.id})}" method="post" style="display: inline;">
-											<input class="btn btn-danger" type="submit" value="Eliminar" />
+											<input class="btn btn-danger" type="submit" th:value="#{eliminar}"/>
 										</form>
 									</div>
 								</div>
