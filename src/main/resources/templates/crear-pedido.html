@@ -10,23 +10,45 @@
 <div class="container mt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-9">
-            <form th:action="@{/pedidos}">
-                <button type="submit" class="btn btn-primary" th:text="#{volver}"></button>
-            </form>
             <div class="card">
-                <div class="card-header  bg-dark">
-                    <h2 class="text-center text-white" th:text="#{nombre}+ ' ' + #{comercial}"></h2>
-                </div>
-                <div class="col-md-8 align-self-center">
-                    <form class="" method="post" th:action="@{/pedidos/buscar}">
-                        <input class="input-group-text w-100 mt-5" type="search" name="nombreBuscar" >
-                        <input class="btn btn-primary mt-3"  type="submit" th:value="#{buscar}">
-                    </form>
-                </div>
+                <form th:action="@{/pedidos/crear/__${id_cliente}__/__${id_comercial}__}" th:object="${pedido}" method="post">
+                    <div class="card-header  bg-dark">
+                        <h2 class="text-center text-white">Crear Pedido</h2>
+                    </div>
+                    <div class="card-body">
+                    <div class="form-group">
+                        <input type="hidden" name="clienteId" th:value="${id_cliente}" />
+                        <input type="hidden" name="comercialId" th:value="${id_comercial}" />
+
+                        <label>Total</label>
+                        <input class="form-control" th:field="*{total}" />
+                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}">
+                            <li th:each="err : ${#fields.hasErrors('total')}"/>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input type="date" class="form-control" th:field="*{fecha}"/>
+                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
+                            <li th:each="err : ${#fields.hasErrors('fecha')}"/>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label>id Cliente</label>
+                        <input class="form-control bg-light" th:value="${id_cliente}" readonly="readonly" />
+                    </div>
+                    <div class="form-group">
+                        <label>id Comercial</label>
+                        <input class="form-control bg-light" th:value="${id_comercial}" readonly="readonly" />
+                    </div>
+                        <input class="btn btn-success" type="submit" value="Crear">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

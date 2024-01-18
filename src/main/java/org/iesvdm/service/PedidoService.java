@@ -34,6 +34,11 @@ public class PedidoService {
 		pedidoDAO.create(pedido);
 	}
 
+	public void newPedidoIds(Pedido pedido, Integer id_cliente, Integer id_comercial) {
+
+		pedidoDAO.createCliCom(pedido, id_cliente, id_comercial);
+	}
+
 	public void replacePedido(Pedido pedido) {
 
 		pedidoDAO.update(pedido);

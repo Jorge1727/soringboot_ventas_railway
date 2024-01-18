@@ -1,6 +1,8 @@
 package org.iesvdm.dao;
 
 import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.modelo.Cliente;
+import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -64,6 +66,45 @@ public class PedidoDAOImpl implements PedidoDAO {
 
 		log.info("Insertados {} registros.", rows);
 	}
+
+	@Override
+	public synchronized void createCliCom(Pedido pedido, Integer id_cliente, Integer id_comercial) {
+
+		//Desde java15+ se tiene la triple quote """ para bloques de texto como cadenas.
+		String sqlInsert = """
+							INSERT INTO pedido (total, fecha, id_cliente, id_comercial) 
+							VALUES  (     ?,         ?,         ?,       ?)
+						   """;
+
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		//Con recuperación de id generado
+		int rows = jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement(sqlInsert, new String[] { "id" });
+			int idx = 1;
+			ps.setDouble(idx++, pedido.getTotal());
+
+			java.sql.Date fechaSql = new java.sql.Date(pedido.getFecha().getTime());
+			ps.setDate(idx++, fechaSql);
+
+			ps.setInt(idx++, id_cliente);
+			ps.setInt(idx++, id_comercial);
+			return ps;
+		},keyHolder);
+
+		pedido.setId(keyHolder.getKey().intValue());
+
+		//Sin recuperación de id generado
+//		int rows = jdbcTemplate.update(sqlInsert,
+//							pedido.getNombre(),
+//							pedido.getApellido1(),
+//							pedido.getApellido2(),
+//							pedido.getCiudad(),
+//							pedido.getCategoria()
+//					);
+
+		log.info("Insertados {} registros.", rows);
+	}
+
 
 	/**
 	 * Devuelve lista con todos loa Pedidos.

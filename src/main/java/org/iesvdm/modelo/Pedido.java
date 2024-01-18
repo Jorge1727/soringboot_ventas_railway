@@ -22,10 +22,8 @@ public class Pedido {
     @NotNull
     private Date fecha;
 
-    @NotNull(message = "El campo no puede ser nulo")
     private Cliente cliente;
 
-    @NotNull(message = "El campo no puede ser nulo")
     private Comercial comercial;
     public Pedido(){}
 

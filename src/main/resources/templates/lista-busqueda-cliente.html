@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Clientes</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellido1</th>
+                        <th>Apellido2</th>
+                        <th>Ciudad</th>
+                        <th>Categoria</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  th:each="cliente : ${listaBusqueda}" >
+                        <td th:text="${cliente.id}">0</td>
+                        <td th:text="${cliente.nombre}">nombre</td>
+                        <td th:text="${cliente.apellido1}">apellido1</td>
+                        <td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
+                        <td th:text="${cliente.ciudad}">ciudad</td>
+                        <td th:text="${cliente.categoria}">categoria</td>
+                        <td>
+                            <input type="hidden" name="id_comercial" th:value="${id_comercial}" />
+
+                            <form th:action="@{/pedidos/crear/{clienteId}/{comercialId}(clienteId=${cliente.id}, comercialId=${id_comercial})}" style="display: inline;" method="get">
+                                <input class="btn btn-primary" type="submit" value="Seleccionar" />
+                            </form>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- verifica si no hay resultados y lo muestra -->
+            <div th:if="${sinResultados != null}" class="alert alert-info">
+                <p th:text="${sinResultados}"></p>
+                <form th:action="@{/pedidos/buscar}">
+                    <button type="submit" class="btn btn-success">Volver</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

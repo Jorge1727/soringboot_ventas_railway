@@ -1,8 +1,10 @@
 package org.iesvdm.controlador;
 
 import jakarta.validation.Valid;
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
+import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
 import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class PedidoController {
 	private PedidoService pedidoService;
 	@Autowired
 	private ComercialService comercialService;
+	@Autowired
+	private ClienteService clienteService;
 	//Se utiliza inyección automática por constructor del framework Spring.
 	//Por tanto, se puede omitir la anotación Autowired
 
@@ -40,14 +44,28 @@ public class PedidoController {
 		return "pedidos";// es el nombre de templates, lo redirigue all
 	}
 
-	@PostMapping("/pedidos/crear/{id_comercial}")
-	public String crear(Model model, @PathVariable Integer id_comercial) {
+	@GetMapping("/pedidos/crear/{id_cliente}/{id_comercial}")
+	public String crear(Model model, @PathVariable Integer id_cliente, @PathVariable Integer id_comercial) {
 
 		Pedido pedido = new Pedido();
-		model.addAttribute("pedido", pedido);
-		model.addAttribute("id_comercial", id_comercial);
 
-		return "crear-pedido-comercial";
+		model.addAttribute("id_cliente", id_cliente);
+		model.addAttribute("id_comercial", id_comercial);
+		model.addAttribute("pedido", pedido);
+
+		return "crear-pedido";
+	}
+
+	@PostMapping("/pedidos/crear/{clienteId}/{comercialId}")
+	public String submitCrear(@ModelAttribute("pedido") Pedido pedido, @PathVariable String clienteId, @PathVariable String comercialId) {
+
+		Integer id_cliente = Integer.parseInt(clienteId);
+		Integer id_comercial = Integer.parseInt(comercialId);
+
+		pedidoService.newPedidoIds(pedido, id_cliente, id_comercial);
+
+		return "redirect:/pedidos";
+
 	}
 
 	@GetMapping("/pedidos/buscar")
@@ -56,7 +74,7 @@ public class PedidoController {
 		Pedido pedido = new Pedido();
 		model.addAttribute("pedido", pedido);
 
-		return "crear-pedido";
+		return "crear-pedido-busquedaComercial";
 	}
 
 	@PostMapping("/pedidos/buscar")
@@ -69,30 +87,50 @@ public class PedidoController {
 					.filter(c -> c.getNombre().toLowerCase().contains(nombreBuscar.toLowerCase()))
 					.collect(Collectors.toList());
 
-			if(listaBusqueda.isEmpty())
-			{
+			if(listaBusqueda.isEmpty()) {
+
 				model.addAttribute("sinResultados", "No se encontraron resultados.");
 			}
 
 			model.addAttribute("listaBusqueda", listaBusqueda);
 
-			return "lista-busqueda";
+			return "lista-busqueda-comercial";
 
 	}
 
-	@PostMapping("/pedidos/crear")
-	public String submitCrear(Model model, @Valid @ModelAttribute("pedido") Pedido pedido, Errors errors, @RequestParam("id_comercial") Integer id_comercial) {
+	@PostMapping("/pedidos/crear/{id_comercial}")
+	public String buscar(Model model, @RequestParam("nombreBuscar")String nombreBuscar, @PathVariable Integer id_comercial){
 
-		if(errors.hasErrors()){
-			model.addAttribute("id_comercial", id_comercial);
-			return "crear-pedido-comercial";
+		//obtengo la lista de los comerciales y filtro mediante streams
+		List<Cliente> listaBusqueda = this.clienteService.listAll();
+
+		listaBusqueda = listaBusqueda.stream()
+				.filter(c -> c.getNombre().toLowerCase().contains(nombreBuscar.toLowerCase()))
+				.collect(Collectors.toList());
+
+		if(listaBusqueda.isEmpty()) {
+
+			model.addAttribute("sinResultados", "No se encontraron resultados.");
 		}
 
-		pedidoService.newPedido(pedido);
+		model.addAttribute("id_comercial", id_comercial);
+		model.addAttribute("listaBusqueda", listaBusqueda);
 
-		return "redirect:/pedidos";
+		return "lista-busqueda-cliente";
 
 	}
+
+	@PostMapping("/pedidos/buscar/{id_comercial}")
+	public String buscar(Model model, @PathVariable Integer id_comercial){
+
+
+		model.addAttribute("id_comercial", id_comercial);
+
+		return "crear-pedido-busquedaCliente";
+
+	}
+
+
 
 	@GetMapping("/pedidos/{id}")
 	public String detalle(Model model, @PathVariable Integer id ) {

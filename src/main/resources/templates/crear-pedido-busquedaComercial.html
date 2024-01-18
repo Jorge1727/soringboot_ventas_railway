@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Crear Pedido</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-9">
+            <form th:action="@{/pedidos}">
+                <button type="submit" class="btn btn-primary" th:text="#{volver}"></button>
+            </form>
+            <div class="card">
+                <div class="card-header  bg-dark">
+                    <h2 class="text-center text-white" th:text="#{nombre}+ ' ' + #{comercial}"></h2>
+                </div>
+                <div class="col-md-8 align-self-center">
+                    <form class="" method="post" th:action="@{/pedidos/buscar}">
+                        <input class="input-group-text w-100 mt-5" type="search" name="nombreBuscar" >
+                        <input class="btn btn-primary mt-3"  type="submit" th:value="#{buscar}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
