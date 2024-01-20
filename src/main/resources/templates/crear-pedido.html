@@ -13,35 +13,35 @@
             <div class="card">
                 <form th:action="@{/pedidos/crear/__${id_cliente}__/__${id_comercial}__}" th:object="${pedido}" method="post">
                     <div class="card-header  bg-dark">
-                        <h2 class="text-center text-white">Crear Pedido</h2>
+                        <h2 class="text-center text-white" th:text="#{crear} +' '+#{pedido}"></h2>
                     </div>
                     <div class="card-body">
                     <div class="form-group">
                         <input type="hidden" name="clienteId" th:value="${id_cliente}" />
                         <input type="hidden" name="comercialId" th:value="${id_comercial}" />
 
-                        <label>Total</label>
+                        <label th:text="#{total}"></label>
                         <input class="form-control" th:field="*{total}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}">
                             <li th:each="err : ${#fields.hasErrors('total')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>Fecha</label>
+                        <label th:text="#{fecha}"></label>
                         <input type="date" class="form-control" th:field="*{fecha}"/>
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
                             <li th:each="err : ${#fields.hasErrors('fecha')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>id Cliente</label>
+                        <label th:text="#{cliente}"></label>
                         <input class="form-control bg-light" th:value="${id_cliente}" readonly="readonly" />
                     </div>
                     <div class="form-group">
-                        <label>id Comercial</label>
+                        <label th:text="#{comercial}"></label>
                         <input class="form-control bg-light" th:value="${id_comercial}" readonly="readonly" />
                     </div>
-                        <input class="btn btn-success" type="submit" value="Crear">
+                        <input class="btn btn-success" type="submit" th:value="#{crear}">
                     </div>
                 </form>
             </div>

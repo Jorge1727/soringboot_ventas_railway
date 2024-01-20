@@ -16,37 +16,37 @@
             <div class="card">
                 <form class="" th:action="@{/comerciales/crear}" th:object="${comercial}" method="post">
                     <div class="card-header  bg-dark">
-                        <h2 class="text-center text-white">Crear Comercial</h2>
+                        <h2 class="text-center text-white" th:text="#{crear} + ' ' + #{comercial}"></h2>
                     </div>
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label>Nombre</label>
+                            <label th:text="#{nombre}"></label>
                             <input class="form-control" th:field="*{nombre}" />
                             <ul class="alert alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
                                 <li th:each="err : ${#fields.hasErrors('nombre')}"/>
                             </ul>
                         </div>
                         <div class="form-group">
-                            <label>Apellido 1</label>
+                            <label th:text="#{apellido}"> 1</label>
                             <input class="form-control" th:field="*{apellido1}" />
                             <ul class="alert alert-danger" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">
                                 <li th:each="err : ${#fields.hasErrors('apellido1')}"/>
                             </ul>
                         </div>
                         <div class="form-group">
-                            <label>Apellido 2</label>
+                            <label th:text="#{apellido}"> 2</label>
                             <input class="form-control" th:field="*{apellido2}" />
                         </div>
                         <div class="form-group">
-                            <label>Comisión</label>
+                            <label th:text="#{comision}"></label>
                             <input class="form-control" th:field="*{comision}" />
                             <ul class="alert alert-danger" th:if="${#fields.hasErrors('comision')}" th:errors="*{comision}">
                                 <li th:each="err : ${#fields.hasErrors('comision')}"/>
                             </ul>
                         </div>
 
-                        <input class="btn btn-success" type="submit" value="Crear">
+                        <input class="btn btn-success" type="submit" th:value="#{crear}">
                     </div>
                 </form>
             </div>

@@ -41,6 +41,7 @@
 					<th th:text="#{nombre}"></th>
 					<th th:text="#{apellido}"> 1</th>
 					<th th:text="#{apellido}"> 2</th>
+					<th th:text="#{email}"></th>
 					<th th:text="#{ciudad}"></th>
 					<th th:text="#{categoria}"></th>
 					<th th:text="#{accion}"></th>
@@ -52,6 +53,7 @@
 					<td th:text="${cliente.nombre}">nombre</td>
 					<td th:text="${cliente.apellido1}">apellido1</td>
 					<td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
+					<td th:text="${cliente.email}">email</td>
 					<td th:text="${cliente.ciudad}">ciudad</td>
 					<td th:text="${cliente.categoria}">categoría</td>
 					<td>

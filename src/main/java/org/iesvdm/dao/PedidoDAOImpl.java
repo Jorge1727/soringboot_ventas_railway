@@ -25,6 +25,8 @@ public class PedidoDAOImpl implements PedidoDAO {
 	 //Plantilla jdbc inyectada automáticamente por el framework Spring, gracias a la anotación @Autowired.
 	 @Autowired
 	 private JdbcTemplate jdbcTemplate;
+
+
 	
 	/**
 	 * Inserta en base de datos el nuevo Pedido, actualizando el id en el bean Pedido.

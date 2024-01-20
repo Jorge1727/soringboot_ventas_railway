@@ -18,12 +18,12 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido1</th>
-                        <th>Apellido2</th>
-                        <th>Ciudad</th>
-                        <th>Categoria</th>
-                        <th>Acción</th>
+                        <th th:text="#{nombre}"></th>
+                        <th th:text="#{apellido}"> 1</th>
+                        <th th:text="#{apellido}"> 2</th>
+                        <th th:text="#{ciudad}"></th>
+                        <th th:text="#{categoria}"></th>
+                        <th th:text="#{accion}"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
                             <input type="hidden" name="id_comercial" th:value="${id_comercial}" />
 
                             <form th:action="@{/pedidos/crear/{clienteId}/{comercialId}(clienteId=${cliente.id}, comercialId=${id_comercial})}" style="display: inline;" method="get">
-                                <input class="btn btn-primary" type="submit" value="Seleccionar" />
+                                <input class="btn btn-primary" type="submit" th:value="#{seleccionar}" />
                             </form>
 
                         </td>
@@ -50,7 +50,7 @@
             <div th:if="${sinResultados != null}" class="alert alert-info">
                 <p th:text="${sinResultados}"></p>
                 <form th:action="@{/pedidos/buscar}">
-                    <button type="submit" class="btn btn-success">Volver</button>
+                    <button type="submit" class="btn btn-success" th:text="#{volver}"></button>
                 </form>
             </div>
         </div>

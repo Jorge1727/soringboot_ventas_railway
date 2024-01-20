@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.ComercialDTO;
 
 public interface ComercialDAO {
 	
@@ -15,5 +16,7 @@ public interface ComercialDAO {
 	public void update(Comercial cliente);
 	
 	public void delete(long idComercial);
+
+	public ComercialDTO comercialStats(int idComercial);
 
 }

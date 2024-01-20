@@ -48,8 +48,8 @@
 			<tbody>
 				<tr  th:each="pedido : ${listaPedidos}" >
 					<td th:text="${pedido.id}">0</td>
-					<td th:text="${pedido.total}">total</td>
-					<td th:text="${pedido.fecha}">fecha</td>
+					<td th:text="${pedido.total + '€'}">total</td>
+					<td th:text="${pedido.fecha}">fechºa</td>
 					<td th:text="${pedido.cliente.nombre}">nombre_cliente</td>
 					<td th:text="${pedido.comercial.nombre ?: '&nbsp;'}">nombre_comercial</td>
 					<td>
@@ -88,6 +88,32 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="card">
+			<div class="container mt-5">
+				<h1 th:text="#{clientes}"></h1>
+				<table class="table table-striped">
+					<thead class="table-dark">
+					<h5 th:text="#{clientes.ordenados}"></h5>
+					<tr>
+						<th th:text="#{nombre}"></th>
+						<th th:text="#{apellido}"></th>
+						<th th:text="#{total}"></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr  th:each="pedidoCliente : ${listaClienteOrdenPedido}">
+						<td>
+							<a th:href="@{'/clientes/' + ${pedidoCliente.getCliente().getId()}}" target="_blank">
+								<span th:text="${pedidoCliente.getCliente().getNombre()}">nombre</span>
+							</a>
+						</td>
+						<td th:text="${pedidoCliente.getCliente().getApellido1()}">apellido</td>
+						<td th:text="${pedidoCliente.getTotal()} + '€'">total</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 

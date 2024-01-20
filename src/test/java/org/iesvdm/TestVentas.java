@@ -17,7 +17,7 @@ public class TestVentas {
     @Test
     void testRecarga_id_autoIncrement(){
 
-        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
 
         this.clienteDAOImpl.create(cliente);
 
@@ -33,7 +33,7 @@ public class TestVentas {
         int clientesActuales = this.clienteDAOImpl.getAll().size();
         System.out.println("Actuales = " + clientesActuales);
 
-        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
         this.clienteDAOImpl.create(cliente);
 
         int clientesMasNuevo = this.clienteDAOImpl.getAll().size();
@@ -46,7 +46,7 @@ public class TestVentas {
     @Test
     void  testFind(){
 
-        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
         this.clienteDAOImpl.create(cliente);
 
         int idABuscar = cliente.getId();
@@ -59,13 +59,13 @@ public class TestVentas {
 
     @Test
     void testUpdate() {
-        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
         clienteDAOImpl.create(cliente);
 
         int idCliente = cliente.getId();
         System.out.println("Cliente con id: " + idCliente + ", Nombre actual: " + cliente.getNombre());
 
-        Cliente clienteModificado = new Cliente(idCliente, "Jose", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente clienteModificado = new Cliente(idCliente, "Jose", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
         clienteDAOImpl.update(clienteModificado);
 
         Assertions.assertEquals("Jose", clienteDAOImpl.find(idCliente).get().getNombre());
@@ -80,7 +80,7 @@ public class TestVentas {
         int totalClientesAntes = this.clienteDAOImpl.getAll().size();
         System.out.println("Total Clientes antes: "+ totalClientesAntes);
 
-        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2);
+        Cliente cliente = new Cliente(0, "Jhon", "Perez", "Lopez", "Las Lagunas", 2, "jhonpe@gmail.com");
         clienteDAOImpl.create(cliente);
         int totalConNuevoCliente = this.clienteDAOImpl.getAll().size();
         System.out.println("Total Clientes con nuevo cliente" + totalConNuevoCliente);

@@ -8,6 +8,7 @@ import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.PedidoDAO;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.ComercialDTO;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,10 @@ public class ComercialService {
     public List<Pedido> pedidosComercial(Integer id){
 
         return pedidoDAO.pedidosIdComercial(id);
+    }
+
+    public ComercialDTO estadisticasComercial(int id)
+    {
+        return comercialDAO.comercialStats(id);
     }
 }

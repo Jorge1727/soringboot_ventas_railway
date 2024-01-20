@@ -1,12 +1,15 @@
 package org.iesvdm.dao;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.ComercialDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -25,7 +28,9 @@ public class ComercialDAOImpl implements ComercialDAO {
 	//JdbcTemplate se inyecta por el constructor de la clase automáticamente
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
+
+
 	@Override
 	public void create(Comercial comercial) {
 
@@ -42,7 +47,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 			ps.setString(idx++, comercial.getNombre());
 			ps.setString(idx++, comercial.getApellido1());
 			ps.setString(idx++, comercial.getApellido2());
-			ps.setFloat(idx++, comercial.getComision());
+			ps.setBigDecimal(idx++, comercial.getComision());
 			return ps;
 		},keyHolder);
 
@@ -58,7 +63,7 @@ public class ComercialDAOImpl implements ComercialDAO {
                 							  rs.getString("nombre"), 
                 							  rs.getString("apellido1"),
                 							  rs.getString("apellido2"),
-                							  rs.getFloat("comisión"))
+                							  rs.getBigDecimal("comisión"))
                 						 	
         );
 		
@@ -75,7 +80,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 						rs.getString("nombre"),
 						rs.getString("apellido1"),
 						rs.getString("apellido2"),
-						rs.getFloat("comisión"))
+						rs.getBigDecimal("comisión"))
 				, id);
 
 		if (fab != null) {
@@ -107,5 +112,30 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 		log.info("Delete de comercial con {} registros eliminados.", rows);
 	}
+	@Override
+	public ComercialDTO comercialStats(int idComercial) {
+
+		Optional<Comercial> comercial = find(idComercial);
+
+		BigDecimal minimo = this.jdbcTemplate.queryForObject(
+				"SELECT MIN(total) FROM PEDIDO WHERE id_comercial = ?",
+				BigDecimal.class, idComercial);
+
+		BigDecimal maximo = this.jdbcTemplate.queryForObject(
+				"SELECT MAX(total) FROM PEDIDO WHERE id_comercial = ?",
+				BigDecimal.class, idComercial);
+
+		BigDecimal media = this.jdbcTemplate.queryForObject(
+				"SELECT AVG(total) FROM PEDIDO WHERE id_comercial = ?",
+				BigDecimal.class, idComercial);
+
+		BigDecimal total = this.jdbcTemplate.queryForObject(
+				"SELECT SUM(total) FROM PEDIDO WHERE id_comercial = ?",
+				BigDecimal.class, idComercial);
+
+		return new ComercialDTO(comercial.get().getNombre(), total.setScale(2, RoundingMode.HALF_UP), media.setScale(2, RoundingMode.HALF_UP), maximo.setScale(2, RoundingMode.HALF_UP), minimo.setScale(2, RoundingMode.HALF_UP));
+	}
+
+
 
 }

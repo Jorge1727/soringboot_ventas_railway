@@ -59,7 +59,7 @@
                                     <span th:text="${pedido.id}">0</span>
                                 </a>
                             </td>
-                            <td th:text="${pedido.total}">total</td>
+                            <td th:text="${pedido.total} + '€'">total</td>
                             <td th:text="${pedido.fecha}">fecha</td>
                             <td>
                                 <a th:href="@{'/clientes/' + ${pedido.cliente.id}}" target="_blank">
@@ -69,6 +69,35 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header  bg-dark">
+                    <h1 class="text-center text-white">Estadisticas Comercial</h1>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="nombredto">Nombre</label>
+                        <input id="nombredto" class="form-control" th:value="${comercialDTO.nombre}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totaldto" th:text="#{total}"></label>
+                        <input id="totaldto" class="form-control" th:value="${comercialDTO.total} +'€'" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="media" th:text="#{media}"></label>
+                        <input id="media" class="form-control" th:value="${comercialDTO.media} +'€'" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="max" th:text="#{maximo}"></label>
+                        <input id="max" class="form-control bg bg-success" th:value="${comercialDTO.maximo} +'€'" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="min" th:text="#{minimo}"></label>
+                        <input id="min" class="form-control bg bg-warning" th:value="${comercialDTO.minimo} +'€'" readonly="readonly"/>
+                    </div>
                 </div>
             </div>
         </div>

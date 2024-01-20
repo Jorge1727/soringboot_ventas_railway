@@ -16,10 +16,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Pedido {
     private int id;
 
-    @NotNull(message = "El campo no puede ser nulo")
+    @NotNull(message = "El campo no puede estar vacio")
+    @Positive(message = "El valor debe ser mayor o igual que 0")
     private double total;
 
-    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "El campo no puede estar vacio")
     private Date fecha;
 
     private Cliente cliente;

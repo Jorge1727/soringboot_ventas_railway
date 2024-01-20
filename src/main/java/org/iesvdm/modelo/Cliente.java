@@ -13,25 +13,28 @@ public class Cliente {
 
 	private int id;
 
-	@NotBlank(message = "Por favor, introduzca nombre.")
-	@Size(min=4, message = "Nombre al menos de 4 caracteres.")
-	@Size(max=10, message = "Nombre como máximo de 10 caracteres.")
+	@NotBlank(message = "{error.introducir.nombre}")
+	@Size(min=4, message = "{error.nombre.size.min}")
+	@Size(max=30, message = "{error.nombre.size.max}")
 	private String nombre;
 
-	@NotBlank(message = "Por favor, introduzca apellido.")
-	@Size(min=4, message = "Nombre al menos de 4 caracteres.")
-	@Size(max=10, message = "Nombre como máximo de 10 caracteres.")
+	@NotBlank(message = "{error.introducir.apellido}")
+	@Size(min=4, message = "{error.apellido.size.min}")
+	@Size(max=30, message = "{error.apellido.size.max}")
 	private String apellido1;
 	private String apellido2;
 
-	@NotBlank(message = "Por favor, introduzca ciudad.")
-	@Size(max=10, message = "Nombre como máximo de 30 caracteres.")
+	@NotBlank(message = "{error.introducir.ciudad}")
+	@Size(max=50, message = "{error.ciudad.size.max}")
 	private String ciudad;
 
 	//NotBlank no es valido para tipos numericos
-	@Min(value=100, message = "Categoría debe ser mayor o igual a 100.")
-	@Max(value=500, message = "Categoría debe ser menor o igual a 500.")
+	@Min(value=100, message = "{error.categoria.size.min}")
+	@Max(value=1000, message = "{error.categoria.size.max}")
 	private int categoria;
+
+	@Email(message = "{error.email}", regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}")
+	private String email;
 
 	//Constructor vacio para poder hacer crear-cliente
 	public Cliente() {

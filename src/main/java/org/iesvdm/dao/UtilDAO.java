@@ -18,13 +18,14 @@ public class UtilDAO {
                         rs.getString("C.apellido1"),
                         rs.getString("C.apellido2"),
                         rs.getString("C.ciudad"),
-                        rs.getInt("C.categoría")
-                ),
+                        rs.getInt("C.categoría"),
+                        rs.getString("c.email")
+                        ),
                 new Comercial(rs.getInt("CO.id"),
                         rs.getString("CO.nombre"),
                         rs.getString("CO.apellido1"),
                         rs.getString("CO.apellido2"),
-                        rs.getFloat("CO.comisión")
+                        rs.getBigDecimal("CO.comisión")
                 )
         );
     }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
 
 @Service
 public class PedidoService {
@@ -19,6 +22,15 @@ public class PedidoService {
 
 	public List<Pedido> listAll() {
 		return pedidoDAO.getAll();
+	}
+
+	public List<Pedido> listadoOrden(){
+		List<Pedido> listaPedidos = pedidoDAO.getAll();
+
+		List<Pedido> listaOrdenada = listaPedidos.stream()
+				.sorted(comparing(Pedido::getTotal).reversed())
+				.collect(Collectors.toList());
+		return listaOrdenada;
 	}
 
 	public Pedido one(Integer id) {

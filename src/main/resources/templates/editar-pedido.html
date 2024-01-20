@@ -16,43 +16,43 @@
             <div class="card">
                 <form class="" th:action="@{/pedidos/editar/__${pedido.id}__}" th:object="${pedido}" method="post">
                     <div class="card-header  bg-dark">
-                        <h2 class="text-center text-white">Editar Pedido</h2>
+                        <h2 class="text-center text-white" th:text="#{editar} +' ' + #{pedido}"></h2>
                     </div>
                     <div class="card-body">
 
                     <div class="form-group">
-                        <label>Codigo</label>
+                        <label>Id</label>
                         <input th:field="*{id}" readonly="readonly"/>
                     </div>
                     <div class="form-group">
-                        <label>Total</label>
+                        <label th:text="#{total}"></label>
                         <input class="form-control" th:field="*{total}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}">
                             <li th:each="err : ${#fields.hasErrors('total')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>Fecha</label>
+                        <label th:text="#{fecha}"></label>
                         <input type="date" class="form-control" th:field="*{fecha}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">
                             <li th:each="err : ${#fields.hasErrors('fecha')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>id Cliente</label>
+                        <label th:text="#{cliente}"></label>
                         <input class="form-control" th:field="*{id_cliente}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('id_cliente')}" th:errors="*{id_cliente}">
                             <li th:each="err : ${#fields.hasErrors('id_client')}"/>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label>id Comercial</label>
+                        <label th:text="#{comercial}"></label>
                         <input class="form-control" th:field="*{id_comercial}" />
                         <ul class="alert alert-danger" th:if="${#fields.hasErrors('id_comercial')}" th:errors="*{id_comercial}">
                             <li th:each="err : ${#fields.hasErrors('id_comercial')}"/>
                         </ul>
                     </div>
-                    <input class="btn btn-success" type="submit" value="Editar">
+                    <input class="btn btn-success" type="submit" th:value="#{editar}">
                     </div>
                 </form>
             </div>

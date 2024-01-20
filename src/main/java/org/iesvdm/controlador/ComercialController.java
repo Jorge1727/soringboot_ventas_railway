@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
-import org.iesvdm.modelo.Cliente;
+import org.iesvdm.modelo.*;
 import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +68,11 @@ public class ComercialController {
     public String detalle(Model model, @PathVariable Integer id ) {
 
         Comercial comercial = comercialService.one(id);
+        ComercialDTO comercialDTO = comercialService.estadisticasComercial(id);
         List<Pedido> listaPedidos = comercialService.pedidosComercial(id);
+
         model.addAttribute("comercial", comercial);
+        model.addAttribute("comercialDTO", comercialDTO);
         model.addAttribute("listaPedidos", listaPedidos);
 
         return "detalle-comercial";

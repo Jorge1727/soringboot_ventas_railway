@@ -39,8 +39,11 @@ public class PedidoController {
 	public String listar(Model model) {
 		
 		List<Pedido> listaPedidos =  pedidoService.listAll();
+		List<Pedido> listaClienteOrdenPedido = pedidoService.listadoOrden();
+
 		model.addAttribute("listaPedidos", listaPedidos);
-				
+		model.addAttribute("listaClienteOrdenPedido", listaClienteOrdenPedido);
+
 		return "pedidos";// es el nombre de templates, lo redirigue all
 	}
 
@@ -57,10 +60,14 @@ public class PedidoController {
 	}
 
 	@PostMapping("/pedidos/crear/{clienteId}/{comercialId}")
-	public String submitCrear(@ModelAttribute("pedido") Pedido pedido, @PathVariable String clienteId, @PathVariable String comercialId) {
+	public String submitCrear(@Valid @ModelAttribute("pedido") Pedido pedido, Errors errors, @PathVariable String clienteId, @PathVariable String comercialId) {
 
 		Integer id_cliente = Integer.parseInt(clienteId);
 		Integer id_comercial = Integer.parseInt(comercialId);
+
+		if(errors.hasErrors()){
+			return "crear-pedido";
+		}
 
 		pedidoService.newPedidoIds(pedido, id_cliente, id_comercial);
 
