@@ -18,7 +18,9 @@ public interface PedidoDAO {
 	public Optional<Pedido>  find(int id);
 	
 	public void update(Pedido pedido);
-	
+
+	public void updateCliCom(Pedido pedido, Integer id_cliente, Integer id_comercial);
+
 	public void delete(long id);
 
 	/**

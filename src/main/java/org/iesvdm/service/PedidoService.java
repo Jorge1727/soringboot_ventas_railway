@@ -1,11 +1,13 @@
 package org.iesvdm.service;
 
 import org.iesvdm.dao.PedidoDAO;
+import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,13 +26,15 @@ public class PedidoService {
 		return pedidoDAO.getAll();
 	}
 
-	public List<Pedido> listadoOrden(){
+	public Map<Cliente, Double> listadoOrden(){
 		List<Pedido> listaPedidos = pedidoDAO.getAll();
 
-		List<Pedido> listaOrdenada = listaPedidos.stream()
-				.sorted(comparing(Pedido::getTotal).reversed())
-				.collect(Collectors.toList());
-		return listaOrdenada;
+		// Utilizamos Java Streams para agrupar los pedidos por cliente y luego sumamos los totales
+		Map<Cliente, Double> sumaPorCliente = listaPedidos.stream()
+				.collect(Collectors.groupingBy(Pedido::getCliente, Collectors.summingDouble(Pedido::getTotal)));
+
+
+		return sumaPorCliente;
 	}
 
 	public Pedido one(Integer id) {
@@ -54,6 +58,11 @@ public class PedidoService {
 	public void replacePedido(Pedido pedido) {
 
 		pedidoDAO.update(pedido);
+	}
+
+	public void replacePedidoIds(Pedido pedido, Integer id_cliente, Integer id_comercial) {
+
+		pedidoDAO.updateCliCom(pedido, id_cliente, id_comercial);
 	}
 
 	public void deletePedido(int id){

@@ -56,7 +56,7 @@
 						<form th:action="@{/pedidos/__${pedido.id}__}" style="display: inline;">
 							<input class="btn btn-primary" type="submit" th:value="#{ver.detalle}" />
 						</form>
-						<form th:action="@{/pedidos/editar/}+${pedido.id} " style="display: inline;">
+						<form th:action="@{/pedidos/editar/__${pedido.id}__}" style="display: inline;">
 							<input class="btn btn-warning" type="submit" th:value="#{editar}" />
 						</form>
 						<button type="button" class="btn btn-danger" data-toggle="modal" th:data-target="'#exampleModal-' + ${pedido.id}" th:text="#{eliminar}">

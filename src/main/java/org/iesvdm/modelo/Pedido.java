@@ -1,11 +1,13 @@
 package org.iesvdm.modelo;
 
-import java.sql.Date;
+
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 //La anotación @Data de lombok proporcionará el código de:
 //getters/setters, toString, equals y hashCode

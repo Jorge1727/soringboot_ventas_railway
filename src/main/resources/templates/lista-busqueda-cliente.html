@@ -37,7 +37,7 @@
                         <td>
                             <input type="hidden" name="id_comercial" th:value="${id_comercial}" />
 
-                            <form th:action="@{/pedidos/crear/{clienteId}/{comercialId}(clienteId=${cliente.id}, comercialId=${id_comercial})}" style="display: inline;" method="get">
+                            <form th:action="@{/pedidos/__${accion}__/{clienteId}/{comercialId}(clienteId=${cliente.id}, comercialId=${id_comercial})}" style="display: inline;" method="get">
                                 <input class="btn btn-primary" type="submit" th:value="#{seleccionar}" />
                             </form>
 

@@ -165,6 +165,26 @@ public class PedidoDAOImpl implements PedidoDAO {
     
 	}
 
+	@Override
+	public void updateCliCom(Pedido pedido, Integer id_cliente, Integer id_comercial) {
+
+		int rows = jdbcTemplate.update("""
+										UPDATE pedido SET 
+														total = ?, 
+														fecha = ?, 
+														id_cliente = ?,
+														id_comercial = ?  
+												WHERE id = ?
+										""", pedido.getTotal()
+				, pedido.getFecha()
+				, id_cliente
+				, id_comercial
+				, pedido.getId());
+
+		log.info("Update de Pedido con {} registros actualizados.", rows);
+
+	}
+
 	/**
 	 * Borra Pedido con ID proporcionado.
 	 */

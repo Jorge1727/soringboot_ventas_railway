@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Añade la biblioteca Typeahead de Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
     <title>Editar Pedido</title>
 </head>
 <body>
@@ -14,13 +20,16 @@
                 <button type="submit" class="btn btn-primary" th:text="#{volver}"></button>
             </form>
             <div class="card">
-                <form class="" th:action="@{/pedidos/editar/__${pedido.id}__}" th:object="${pedido}" method="post">
+                <form class="" th:action="@{/pedidos/editar/__${id_cliente}__/__${id_comercial}__}" th:object="${pedido}" method="post">
                     <div class="card-header  bg-dark">
                         <h2 class="text-center text-white" th:text="#{editar} +' ' + #{pedido}"></h2>
                     </div>
                     <div class="card-body">
 
                     <div class="form-group">
+                        <input type="hidden" name="clienteId" th:value="${id_cliente}" />
+                        <input type="hidden" name="comercialId" th:value="${id_comercial}" />
+
                         <label>Id</label>
                         <input th:field="*{id}" readonly="readonly"/>
                     </div>
@@ -40,17 +49,21 @@
                     </div>
                     <div class="form-group">
                         <label th:text="#{cliente}"></label>
-                        <input class="form-control" th:field="*{id_cliente}" />
-                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('id_cliente')}" th:errors="*{id_cliente}">
-                            <li th:each="err : ${#fields.hasErrors('id_client')}"/>
-                        </ul>
+                        <input class="form-control bg-light" th:value="${pedido.cliente.getNombre()}" readonly="readonly" />
+<!--                        <input type="text" class="form-control typeahead" th:field="*{cliente}"-->
+<!--                               th:attr="data-url=@{buscarClientes}" data-provide="typeahead">-->
+<!--                        <input class="form-control" th:field="*{cliente}" />-->
+<!--                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente.getId()}">-->
+<!--                            <li th:each="err : ${#fields.hasErrors('cliente')}"/>-->
+<!--                        </ul>-->
                     </div>
                     <div class="form-group">
                         <label th:text="#{comercial}"></label>
-                        <input class="form-control" th:field="*{id_comercial}" />
-                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('id_comercial')}" th:errors="*{id_comercial}">
-                            <li th:each="err : ${#fields.hasErrors('id_comercial')}"/>
-                        </ul>
+                        <input class="form-control bg-light" th:value="${pedido.comercial.getNombre()}" readonly="readonly" />
+<!--                        <input class="form-control" th:field="*{comercial}" />-->
+<!--                        <ul class="alert alert-danger" th:if="${#fields.hasErrors('comercial')}" th:errors="*{comercial.getId()}">-->
+<!--                            <li th:each="err : ${#fields.hasErrors('comercial')}"/>-->
+<!--                        </ul>-->
                     </div>
                     <input class="btn btn-success" type="submit" th:value="#{editar}">
                     </div>
@@ -60,5 +73,17 @@
     </div>
 </div>
 
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        // Configura el tipoahead en el campo de búsqueda-->
+<!--        $('.typeahead').typeahead({-->
+<!--            source: function (query, process) {-->
+<!--                return $.post('/buscarClientes', { nombreBuscar: query }, function (data) {-->
+<!--                    return process(data);-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>
