@@ -59,7 +59,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- añadimos lombok para mayor simplificación del código -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
